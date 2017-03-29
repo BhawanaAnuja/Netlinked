@@ -10,7 +10,7 @@ var ddmenuitem      = 0;
 
 // open hidden layer
 function mopen(id)
-{	
+{
 	// cancel close timer
 	mcancelclosetime();
 
@@ -45,23 +45,34 @@ function mcancelclosetime()
 }
 
 // close layer when click-out
-document.onclick = mclose; 
+document.onclick = mclose;
 // -->
 </script>
-<head><title>Profile</title></head>
+<head>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+
+	<!-- Jquery -->
+	<script src="js/jquery-3.2.0.min.js"></script>
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="js/bootstrap.min.js"></script>
+	<title>Profile</title></head>
 
 <link href="home.css" rel="stylesheet" type="text/css" />
 <link rel="icon" href="img/icon.png" type="image" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="./js/jquery-1.4.2.min.js"></script>
+
 	<link href="facebox1.2/src/facebox.css" media="screen" rel="stylesheet" type="text/css" />
 			<link href="../css/example.css" media="screen" rel="stylesheet" type="text/css" />
 			<script src="facebox1.2/src/facebox.js" type="text/javascript"></script>
 			<script type="text/javascript">
 
 jQuery(document).ready(function($) {
-  $('a[rel*=facebox]').facebox() 
-  	closeImage   : " ../src/closelabel.png" 
+  $('a[rel*=facebox]').facebox()
+  	closeImage   : " ../src/closelabel.png"
 })
 </script>
 <script>
@@ -73,7 +84,7 @@ jQuery(document).ready(function($) {
  	<link rel="stylesheet" href="style.css" />
 	<script type="text/javascript">
 		$(document).ready(function() {
-			
+
 
 			$("a[rel=example_group]").fancybox({
 				'transitionIn'		: 'none',
@@ -84,10 +95,10 @@ jQuery(document).ready(function($) {
 				}
 			});
 
-			
+
 		});
 	</script>
-		
+
 <style type="text/css">
 <!--
 body {
@@ -107,7 +118,7 @@ body {
 
 	<?php
 include('connect.php');
-$id= $_SESSION['SESS_MEMBER_ID'];	
+$id= $_SESSION['SESS_MEMBER_ID'];
 $image=mysql_query("SELECT * FROM members WHERE member_id='$id'");
 			$row=mysql_fetch_assoc($image);
 			$_SESSION['image']= $row['profImage'];
@@ -126,22 +137,22 @@ $image=mysql_query("SELECT * FROM members WHERE member_id='$id'");
 	</li>
 	<li><a href="photos.php"><img src="img/photos.png" width="16" height="12" border="0" /> &nbsp;Photos(<?php
 $result = mysql_query("SELECT * FROM photos WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
-	
-	$numberOfRows = MYSQL_NUMROWS($result);	
-	
-	echo '<font color="red">' . $numberOfRows . '</font>'; 
+
+	$numberOfRows = MYSQL_NUMROWS($result);
+
+	echo '<font color="red">' . $numberOfRows . '</font>';
 	?>)	</a>
 	</li>
 	<li><a href="request.php"><img src="img/friends.png" width="16" height="12" border="0" /> &nbsp;Friends Request
-	(<?php 
-					
+	(<?php
+
 					$member_id=$_SESSION['SESS_MEMBER_ID'];
 					$seeall=mysql_query("SELECT * FROM friends WHERE friends_with='$member_id' AND status='unconf'") or die(mysql_error());
 					$numberOFRows=mysql_numrows($seeall);
 					echo '<font color="red">'.$numberOFRows.'</font>';?>)
 					</a>
 	</li>
-	<li><a href="message.php"><img src="img/m.png" width="16" height="12" border="0" /> &nbsp;Message&nbsp(<?php 
+	<li><a href="message.php"><img src="img/m.png" width="16" height="12" border="0" /> &nbsp;Message&nbsp(<?php
 $member_id = $_SESSION['SESS_MEMBER_ID'];
 $received = mysql_query("SELECT * FROM messages WHERE recipient = '$member_id'")or die(mysql_error());
 								$receiveda = mysql_numrows($received);
@@ -151,20 +162,20 @@ $received = mysql_query("SELECT * FROM messages WHERE recipient = '$member_id'")
 ?>)
 	</a>
 	</li>
-	
+
 	<li><hr width="150"></li>
 	<li>
 	</ul>
 	<div class="friend">
 	<ul id="sddm1">
 	<li><a href=""><img src="img/friends.png" width="16" height="12" border="0" /> &nbsp;Friends
-	
+
 	(<?php
 
 
 $result = mysql_query("SELECT * FROM friends WHERE  friends_with = '$id' and  member_id!= '$id' and status = 'conf'    OR member_id = '$id' and friends_with != '$id' and status = 'conf' ");
-	
-	$numberOfRows = MYSQL_NUMROWS($result);	
+
+	$numberOfRows = MYSQL_NUMROWS($result);
 	echo '<font color="Red">' . $numberOfRows. '</font>';
 	?>)
 	</a>
@@ -172,56 +183,56 @@ $result = mysql_query("SELECT * FROM friends WHERE  friends_with = '$id' and  me
 	</ul>
 	<ul id="sddm1">
   <?php
-							
-							
-								$member_id=$_SESSION['SESS_MEMBER_ID'];							
+
+
+								$member_id=$_SESSION['SESS_MEMBER_ID'];
 								$post = mysql_query("SELECT * FROM friends WHERE friends_with = '$id' and  member_id!= '$id' and status = 'conf'    OR member_id = '$id' and friends_with != '$id' and status = 'conf'  ")or die(mysql_error());
-								
+
 
 								$num_rows  =mysql_numrows($post);
-							
+
 							if ($num_rows != 0 ){
 
 								while($row = mysql_fetch_array($post)){
-				
+
 								$myfriend = $row['member_id'];
 								$member_id=$_SESSION['SESS_MEMBER_ID'];
-								
+
 									if($myfriend == $member_id){
-									
+
 										$myfriend1 = $row['friends_with'];
 										$friends = mysql_query("SELECT * FROM members WHERE member_id = '$myfriend1'")or die(mysql_error());
 										$friendsa = mysql_fetch_array($friends);
-									
+
 										echo '<li> <a href=friendprofile.php?id='.$friendsa["member_id"].' style="text-decoration:none;"><img src="'. $friendsa['profImage'].'" height="50" width="50"></li><br><li>'.$friendsa['FirstName'].' '.$friendsa['LastName'].' </a> </li>';
-										
+
 									}else{
-										
+
 										$friends = mysql_query("SELECT * FROM members WHERE member_id = '$myfriend'")or die(mysql_error());
 										$friendsa = mysql_fetch_array($friends);
-										
+
 									echo '<li> <a href=friendprofile.php?id='.$friendsa["member_id"].' style="text-decoration:none;"><img src="'. $friendsa['profImage'].'" height="50" width="50"></li><br><li>'.$friendsa['FirstName'].' '.$friendsa['LastName'].' </a> </li>';
-										
+
 									}
 								}
 								}else{
 									echo 'You don\'t have friends </li>';
 								}
-						
-							
+
+
 							?>
 							</ul>
-							
+
 							<ul id="sddm1">
 							<li><hr width="150"></li>
 							</ul>
-</div>							
+</div>
   </div>
   <div class="righttop1">
        <div class="search">
        <form action="search.php" method="POST">
         <input name="search" type="text" maxlength="30" class="textfield"  value="search"/>
-	
+
       </form>
 </div>
     <div class="nav">
@@ -244,7 +255,7 @@ echo"  ";
                <li><a  href="#"onmouseover="mopen('m5')" onmouseout="mclosetime()">Account</a>
           <div id="m5" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
 </a>
-        
+
 		<a href="logout.php"><font size="2" class="font1">Logout</font></a>
         </li>
       </ul>
@@ -252,22 +263,22 @@ echo"  ";
       <div style="clear:both"></div>
     </div>
   </div>
-  
+
   </div>
-  
+
 <div class="right">
 	<div class="rightright">
 	<form method="post">
 	 <a href ="editprofile.php" class="a">Edit Profile</a>
-	 
+
 	 </form>
 	 <div class="colorless"><b>People You May Know</b></div>
 	 <hr width="200">
 
 	<div class="bkb"></div>
-		
+
 			<?php
-					
+
 						$id = $_SESSION['SESS_MEMBER_ID'];
 						$post = mysql_query("SELECT * FROM members WHERE member_id != '$id' LIMIT 0,3")or die(mysql_error());
 						while($row = mysql_fetch_array($post)){
@@ -277,18 +288,18 @@ echo"  ";
 								<a href="friendprofile.php?id='.$row['member_id'].'"><img class="img" src="'.$row['profImage'].'" alt="" height="40" width="40" " />
 								<font color="#1d3162">'.$row['FirstName']." ".$row['LastName'].'</font>
 								</br>
-							
+
 								<a href="addfriend.php?id='.$row['member_id'].'" rel="facebox"style="text-decoration:none;"  >Add as Friend</a></p>
 								<hr width=200>
 								</ul>
 							</li>';
-							
+
 						}
 					?>
-					
+
 	 </div>
 
-	 
+
 	   <div class="shout">
 
 <h2><div class="color"><?php
@@ -315,12 +326,12 @@ while($row = mysql_fetch_array($result))
 
 
  echo "<a href=".$row['location']." rel=example_group><img class=img width=70 height=70 alt='Unable to View' src='". $row["location"] . "'>" . '</a>';
- 
+
 
   echo"";
- 
 
- 
+
+
   }
 
 
@@ -342,11 +353,11 @@ while($row = mysql_fetch_array($result))
   echo "Contact No: "."".$row['ContactNo']. " | " ."Email: ".$row['Url'];
   echo "</br>";
    echo "Status: "."".$row['Stats'];
-  
+
   }
 ?>
 </div>
-</div> 
+</div>
 <div class="shoutout">
 
 		<div  class="back"><h4><class="p"><div></h4></div>
@@ -361,14 +372,14 @@ while($row = mysql_fetch_array($result))
           <input type="submit" name="btnlog" value="Post" class="greenButton" />
           </div>
         </form>
-		 <div class="s"> 
+		 <div class="s">
  <?php
-	   
+
 
   $query  = "SELECT *,UNIX_TIMESTAMP() - date_created AS TimeSpent FROM comment WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."' ORDER BY comment_id DESC";
 $result = mysql_query($query);
-			
-			
+
+
 
 while($row = mysql_fetch_assoc($result))
 {
@@ -380,7 +391,7 @@ while($row1 = mysql_fetch_array($result1))
 	echo "<img width=40 height=40 alt='Unable to View' src='" . $row1["profImage"] . "'>";
 	}
 	echo '<div class="message">';
-	
+
 		$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
 while($row1 = mysql_fetch_array($result1))
   {
@@ -388,8 +399,8 @@ while($row1 = mysql_fetch_array($result1))
 
  echo " Posted by:<font color=#1d3162> {$row1['FirstName']}"."&nbsp;{$row1["LastName"]}</font>";
   }
-	
-	
+
+
 	echo '</br>';
 	echo "{$row['comment']}";
 
@@ -398,9 +409,9 @@ while($row1 = mysql_fetch_array($result1))
 	echo'</div>';
 	echo'<hr width="390">';
 	echo '<div class="kkk">';
-	
-	echo'<a class="style" href="deletepost1.php?id=' . $row["comment_id"] . '">delete</a>&nbsp;&nbsp;<a class="style" href=""><img width=20 height=20  src=img/like.png>Like</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-	
+
+	echo'<a class="style" href="deletepost1.php?id=' . $row["comment_id"] . '">delete</a>&nbsp;&nbsp;<a style="outline:none" class="style" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover"><img width=20 height=20  src=img/like.png >Like</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+
 	$days = floor($row['TimeSpent'] / (60 * 60 * 24));
 			$remainder = $row['TimeSpent'] % (60 * 60 * 24);
 			$hours = floor($remainder / (60 * 60));
@@ -410,23 +421,34 @@ while($row1 = mysql_fetch_array($result1))
 	if($days > 0)
 			echo date('F d Y', $row['date_created']);
 			elseif($days == 0 && $hours == 0 && $minutes == 0)
-			echo "few seconds ago";		
+			echo "few seconds ago";
 			elseif($days == 0 && $hours == 0)
 			echo $minutes.' minutes ago';
-		
+
 	echo'</div>';
 	echo'</br>';
 	echo'</br>';
 	}
-	
+
   echo '</div>';
   echo'</br>';
- 
+
   ?>
-      
-	
+
+
 	 </div>
 	</div>
-
+	<script>
+	$(document).ready(function(){
+	    $('[data-toggle="popover"]').popover(
+				{
+        placement : 'top',
+				trigger : 'focus',
+        html : true,
+        content : '<img src="img/emoticons/1.gif	" height=25px>&nbsp;<img src="img/emoticons/2.gif	" height=25px>&nbsp;<img src="img/emoticons/3.gif	" height=25px>&nbsp;<img src="img/emoticons/4.gif	" height=25px>&nbsp;<img src="img/emoticons/5.gif	" height=25px>&nbsp;<img src="img/emoticons/6.gif	" height=25px>&nbsp;<img src="img/emoticons/7.gif	" height=25px>&nbsp;<img src="img/emoticons/8.gif	" height=25px>&nbsp;<img src="img/emoticons/9.gif	" height=25px>&nbsp;<img src="img/emoticons/10.gif	" height=25px>&nbsp;<img src="img/emoticons/11.gif	" height=25px>&nbsp;<img src="img/emoticons/12.gif	" height=25px>&nbsp;<img src="img/emoticons/13.gif	" height=25px>&nbsp;<img src="img/emoticons/14.gif	" height=25px>&nbsp;<img src="img/emoticons/15.gif	" height=25px>&nbsp;<img src="img/emoticons/16.gif	" height=25px>&nbsp;<img src="img/emoticons/17.gif	" height=25px>&nbsp;<img src="img/emoticons/18.gif	" height=25px>&nbsp;<img src="img/emoticons/19.gif	" height=25px>&nbsp;<img src="img/emoticons/20.gif	" height=25px>&nbsp;<img src="img/emoticons/21.gif	" height=25px>&nbsp;'
+    }
+			);
+	});
+	</script>
 </body>
 </html>
