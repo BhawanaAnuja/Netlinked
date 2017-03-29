@@ -193,16 +193,18 @@ $result = mysql_query($query);
 
 while($row = mysql_fetch_assoc($result))
 {
+   $poster1 = $row["member_id_sender"];
    echo '<div class="information">';
 	echo '<div class="pic1">';
-			$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
+			$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$poster1 ."'");
+
 while($row1 = mysql_fetch_array($result1))
   {
 	echo "<img width=40 height=40 alt='Unable to View' src='" . $row1["profImage"] . "'>";
 	}
 	echo '<div class="message">';
 	
-		$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
+		$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$poster1 ."'");
 while($row1 = mysql_fetch_array($result1))
   {
 

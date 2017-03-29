@@ -328,10 +328,16 @@ while($row = mysql_fetch_array($result))
 <hr align="left" width="420">
 <div class="information">
 <?php
+
+if ($row['gender'] == "0")
+		$var = "Female";
+else
+		$var = "Male";
+
 $result = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
 while($row = mysql_fetch_array($result))
   {
-  echo "Lives in: "."".$row['Address']. " | " ."Gender: ".$row['Gender']. " | " ."Born on: ".$row['Birthdate'];
+  echo "Lives in: "."".$row['Address']. " | " ."Gender: ".$var. " | " ."Born on: ".$row['Birthdate'];
   echo "</br>";
   echo "Contact No: "."".$row['ContactNo']. " | " ."Email: ".$row['Url'];
   echo "</br>";

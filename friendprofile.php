@@ -250,9 +250,10 @@ while($row = mysql_fetch_array($result))
           <div class="comment">
             <textarea name="message" cols="45" rows="5" id="message" onclick="this.value='';"></textarea>
           </div>
-          <input name="name" type="hidden" id="name" value="<?php echo $_SESSION['SESS_FIRST_NAME'];?>"/>
-		  <input name="poster" type="hidden" id="name" value="<?php echo $_SESSION['SESS_MEMBER_ID'];?>"/>
-          <input name="name1" type="hidden" id="name" value="<?php echo $_SESSION['SESS_LAST_NAME'];?>"/>
+
+	  <input name="poster" type="hidden" id="name" value="<?php echo $_SESSION['SESS_MEMBER_ID'];?>"/>
+	  <input name="receiver" type="hidden" id="name" value="<?php echo $_GET['id'];?>"/>
+
           <input type="submit" name="btnlog" value="Post" class="greenButton" />
           </div>
         </form>
@@ -260,29 +261,28 @@ while($row = mysql_fetch_array($result))
 	   <?php
 	   
 
-  $query  = "SELECT *,UNIX_TIMESTAMP() - date_created AS TimeSpent FROM comment WHERE member_id='$userid' ORDER BY comment_id DESC";
+  $friendid = $_GET['id'];
+  $query  = "SELECT *,UNIX_TIMESTAMP() - date_created AS TimeSpent FROM comment WHERE member_id='$friendid' ORDER BY comment_id DESC";
 $result = mysql_query($query);
 			
 			
 
 while($row = mysql_fetch_assoc($result))
 {
-   echo '<div class="information">';
+	echo '<div class="information">';
 	echo '<div class="pic1">';
-			$result1 = mysql_query("SELECT * FROM members WHERE member_id='$userid'");
-while($row1 = mysql_fetch_array($result1))
-  {
-	echo "<img width=40 height=40 alt='Unable to View' src='" . $row1["profImage"] . "'>";
+	$poster1 = $row["member_id_sender"];
+	$result1 = mysql_query("SELECT * FROM members WHERE member_id='$poster1'");
+	while($row1 = mysql_fetch_array($result1))
+	{
+		echo "<img width=40 height=40 alt='Unable to View' src='" . $row1["profImage"] . "'>";
 	}
 	echo '<div class="message">';
-	
-		$result1 = mysql_query("SELECT * FROM members WHERE member_id='$userid'");
-while($row1 = mysql_fetch_array($result1))
-  {
-
-
-  echo " Posted by:<font color=#1d3162> {$row1['FirstName']}"."&nbsp;{$row1["LastName"]}</font>";
-  }
+	$result1 = mysql_query("SELECT * FROM members WHERE member_id='$poster1'");
+	while($row1 = mysql_fetch_array($result1))
+	{
+	echo " Posted by:<font color=#1d3162> {$row1['FirstName']}"."&nbsp;{$row1["LastName"]}</font>";
+	}
 	
 	
 	echo '</br>';

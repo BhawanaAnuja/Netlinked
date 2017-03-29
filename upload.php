@@ -58,7 +58,7 @@ document.onclick = mclose;
 
 jQuery(document).ready(function($) {
   $('a[rel*=facebox]').facebox() 
-  	closeImage   : " ../src/closelabel.png" 
+  	closeImage   : " ../facebox1.2/src/closelabel.png" 
 })
 </script>
 

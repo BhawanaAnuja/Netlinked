@@ -16,13 +16,14 @@
 		$vlogin="";
 		$vpassword="";
 		$vcpassword="";
-	    $vaddress="";
+	    	$vaddress="";
 		$vcnumber="";
 		$vemail="";
 
 		$a="";
 		$u="";
 		$e="";
+		$p="";
 		
 		
 		
@@ -33,7 +34,7 @@
 		$login="";
 		$password="";
 		$cpassword="";
-	    $address="";
+	    	$address="";
 		$cnumber="";
 		$email="";
 		
@@ -106,6 +107,13 @@ if ($email=="") {
 	$vemail="";
 	}
 	
+	$pass_patt = "/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/";
+	if(!preg_match($pass_patt , $password)) {
+    		$p="Invalid password";
+	}
+	else { $p="";}
+	
+	
 	if($cpassword!=$password){
 	$a="Password do not Match";}
 	if ($cpassword==""){
@@ -134,7 +142,7 @@ if ($email=="") {
 	
 	
 
-if ($fname!= "" && $lname!= "" && $login!= "" && $password!= "" && $cpassword==$password && $address!="" && preg_match($pattern,$email) && $cnumber!="" ) {
+if ($fname!= "" && $lname!= "" && $login!= "" && $password!= "" && $cpassword==$password && $address!="" && preg_match($pattern,$email) && $cnumber!="" && !preg_match($pass_patt,$password) ) {
 		$link = mysql_connect("localhost", "root", "");
 	if(!$link) {
 		die('Failed to connect to server: ' . mysql_error());
@@ -293,7 +301,7 @@ $(".date").datepicker();
 		<div class="textright"><input name="login" type="text" class="textfield" value="<?php echo $login; ?>"/><font color="Red"><?php echo $vlogin; ?> </font><font color="Red"> <?php echo $u; ?></font>
 		</div>
 		<div class="textleft">Password:</div>
-		<div class="textright"><input name="password2" type="password" class="textfield"value="<?php echo $password; ?>"/><font color="Red"><?php echo $vpassword; ?> </font>
+		<div class="textright"><input name="password2" type="password" class="textfield"value="<?php echo $password; ?>"/><font color="Red"><?php echo $vpassword; ?> </font><font color="Red"><?php echo $p; ?> </font>
 		</div>
 		<div class="textleft">Retype Password:</div>
 		<div class="textright"><input name="cpassword" type="password" class="textfield"value="<?php echo $cpassword; ?>"/><font color="Red"><?php echo $vcpassword; ?> </font><font color="Red"><?php echo $a; ?> </font>

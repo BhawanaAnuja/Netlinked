@@ -13,10 +13,11 @@
 
 $messages = clean($_POST['message']);
 $poster =clean($_POST['poster']);
+$receiver = clean($_POST['receiver']);
 
-$sql="INSERT INTO comment (comment,date_created, member_id)
+$sql="INSERT INTO comment (comment,date_created, member_id_sender, member_id)
 VALUES
-('$messages','".strtotime(date("Y-m-d H:i:s"))."','$poster')";
+('$messages','".strtotime(date("Y-m-d H:i:s"))."','$poster','$receiver')";
 
 if (!mysql_query($sql,$con))
   {
