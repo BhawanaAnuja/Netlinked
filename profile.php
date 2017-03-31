@@ -434,7 +434,7 @@ while($row1 = mysql_fetch_array($result1))
 	echo'<hr width="390">';
 	echo '<div class="kkk">';
 
-	echo'<a class="style" href="deletepost1.php?id=' . $row["comment_id"] . '">delete</a>&nbsp;&nbsp;<a style="outline:none" class="style" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover"><img width=20 height=20  src=img/like.png >Like</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	echo'<a class="style" href="deletepost1.php?id=' . $row["comment_id"] . '">delete</a>&nbsp;&nbsp;<a style="outline:none" class="style" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="modal" data-target="#myModal"><img width=20 height=20  src=img/like.png >Like</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
 	$days = floor($row['TimeSpent'] / (60 * 60 * 24));
 			$remainder = $row['TimeSpent'] % (60 * 60 * 24);
@@ -459,20 +459,63 @@ while($row1 = mysql_fetch_array($result1))
 
   ?>
 
+  <!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Like a post</h4>
+      </div>
+      <div class="modal-body">
+		  <center>
+        <img onclick="like(1)" src="img/emoticons/1.gif	" height=30px>&nbsp;
+		<img src="img/emoticons/2.gif" height=30px>&nbsp;
+		<img src="img/emoticons/3.gif" height=30px>&nbsp;
+		<img src="img/emoticons/4.gif" height=30px>&nbsp;
+		<img src="img/emoticons/5.gif" height=30px>&nbsp;
+		<img src="img/emoticons/6.gif" height=30px>&nbsp;<br>
+		<img src="img/emoticons/7.gif" height=30px>&nbsp;
+		<img src="img/emoticons/8.gif" height=30px>&nbsp;
+		<img src="img/emoticons/9.gif" height=30px>&nbsp;
+		<img src="img/emoticons/10.gif" height=30px>&nbsp;
+		<img src="img/emoticons/11.gif" height=30px>&nbsp;
+		<img src="img/emoticons/12.gif" height=30px>&nbsp;<br>
+		<img src="img/emoticons/13.gif" height=30px>&nbsp;
+		<img src="img/emoticons/14.gif" height=30px>&nbsp;
+		<img src="img/emoticons/15.gif" height=30px>&nbsp;
+		<img src="img/emoticons/16.gif" height=30px>&nbsp;
+		<img src="img/emoticons/17.gif" height=30px>&nbsp;
+		<img src="img/emoticons/18.gif" height=30px>&nbsp;<br>
+		<img src="img/emoticons/19.gif" height=30px>&nbsp;
+		<img src="img/emoticons/20.gif" height=30px>&nbsp;
+		<img src="img/emoticons/21.gif" height=30px>&nbsp;
+		<img src="img/emoticons/22.gif" height=30px>&nbsp;
+		<img src="img/emoticons/23.gif" height=30px>&nbsp;
+		<img src="img/emoticons/24.gif" height=30px>&nbsp;
+	</center>
+      </div>
+      <div class="modal-footer">
+		  <div class="list-group">
+			  <a href="#" class="list-group-item active">
+			    Privacy settings<small>Specify who must see this...</small>
+			  </a>
+			  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
+			  <a href="#" class="list-group-item">Morbi leo risus</a>
+			  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
+			  <a href="#" class="list-group-item">Vestibulum at eros</a>
+			</div>
+      </div>
+    </div>
+  </div>
+</div>
 
 	 </div>
 	</div>
 	<script>
-	$(document).ready(function(){
-	    $('[data-toggle="popover"]').popover(
-				{
-        placement : 'top',
-				trigger : 'focus',
-        html : true,
-        content : '<img onclick="like(1)" src="img/emoticons/1.gif	" height=25px>&nbsp;<img src="img/emoticons/2.gif	" height=25px>&nbsp;<img src="img/emoticons/3.gif	" height=25px>&nbsp;<img src="img/emoticons/4.gif	" height=25px>&nbsp;<img src="img/emoticons/5.gif	" height=25px>&nbsp;<img src="img/emoticons/6.gif	" height=25px>&nbsp;<img src="img/emoticons/7.gif	" height=25px>&nbsp;<img src="img/emoticons/8.gif	" height=25px>&nbsp;<img src="img/emoticons/9.gif	" height=25px>&nbsp;<img src="img/emoticons/10.gif	" height=25px>&nbsp;<img src="img/emoticons/11.gif	" height=25px>&nbsp;<img src="img/emoticons/12.gif	" height=25px>&nbsp;<img src="img/emoticons/13.gif	" height=25px>&nbsp;<img src="img/emoticons/14.gif	" height=25px>&nbsp;<img src="img/emoticons/15.gif	" height=25px>&nbsp;<img src="img/emoticons/16.gif	" height=25px>&nbsp;<img src="img/emoticons/17.gif	" height=25px>&nbsp;<img src="img/emoticons/18.gif	" height=25px>&nbsp;<img src="img/emoticons/19.gif	" height=25px>&nbsp;<img src="img/emoticons/20.gif	" height=25px>&nbsp;<img src="img/emoticons/21.gif	" height=25px>&nbsp;<img src="img/emoticons/22.gif	" height=25px>&nbsp;<img src="img/emoticons/23.gif	" height=25px>&nbsp;<img src="img/emoticons/24.gif	" height=25px>&nbsp;'
-    }
-			);
-	});
+	$('#myModal').on('shown.bs.modal', function () {
+  $('#myInput').focus()
+})
 	</script>
 </body>
 </html>
