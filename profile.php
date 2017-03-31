@@ -60,7 +60,31 @@ document.onclick = mclose;
 
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="js/bootstrap.min.js"></script>
-	<title>Profile</title></head>
+	<title>Profile</title>
+
+	<script>
+	function like(likeType,comment_id,member_id) {
+			console.log("working");
+	        if (window.XMLHttpRequest) {
+	            // code for IE7+, Firefox, Chrome, Opera, Safari
+	            xmlhttp = new XMLHttpRequest();
+	        } else {
+	            // code for IE6, IE5
+	            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	        }
+	        xmlhttp.onreadystatechange = function() {
+	            if (this.readyState == 4 && this.status == 200) {
+									var res = this.responseText;
+	                //document.getElementById("commentlike-"+comment_id).innerHTML = this.responseText;
+	            }
+	        };
+	        xmlhttp.open("GET","likes.php?likeType="+likeType+"&comment_id="+comment_id+"&member_id="+member_id,true);
+	        xmlhttp.send();
+
+	}
+	</script>
+
+</head>
 
 <link href="home.css" rel="stylesheet" type="text/css" />
 <link rel="icon" href="img/icon.png" type="image" />
@@ -445,7 +469,7 @@ while($row1 = mysql_fetch_array($result1))
         placement : 'top',
 				trigger : 'focus',
         html : true,
-        content : '<img src="img/emoticons/1.gif	" height=25px>&nbsp;<img src="img/emoticons/2.gif	" height=25px>&nbsp;<img src="img/emoticons/3.gif	" height=25px>&nbsp;<img src="img/emoticons/4.gif	" height=25px>&nbsp;<img src="img/emoticons/5.gif	" height=25px>&nbsp;<img src="img/emoticons/6.gif	" height=25px>&nbsp;<img src="img/emoticons/7.gif	" height=25px>&nbsp;<img src="img/emoticons/8.gif	" height=25px>&nbsp;<img src="img/emoticons/9.gif	" height=25px>&nbsp;<img src="img/emoticons/10.gif	" height=25px>&nbsp;<img src="img/emoticons/11.gif	" height=25px>&nbsp;<img src="img/emoticons/12.gif	" height=25px>&nbsp;<img src="img/emoticons/13.gif	" height=25px>&nbsp;<img src="img/emoticons/14.gif	" height=25px>&nbsp;<img src="img/emoticons/15.gif	" height=25px>&nbsp;<img src="img/emoticons/16.gif	" height=25px>&nbsp;<img src="img/emoticons/17.gif	" height=25px>&nbsp;<img src="img/emoticons/18.gif	" height=25px>&nbsp;<img src="img/emoticons/19.gif	" height=25px>&nbsp;<img src="img/emoticons/20.gif	" height=25px>&nbsp;<img src="img/emoticons/21.gif	" height=25px>&nbsp;'
+        content : '<img onclick="like(1)" src="img/emoticons/1.gif	" height=25px>&nbsp;<img src="img/emoticons/2.gif	" height=25px>&nbsp;<img src="img/emoticons/3.gif	" height=25px>&nbsp;<img src="img/emoticons/4.gif	" height=25px>&nbsp;<img src="img/emoticons/5.gif	" height=25px>&nbsp;<img src="img/emoticons/6.gif	" height=25px>&nbsp;<img src="img/emoticons/7.gif	" height=25px>&nbsp;<img src="img/emoticons/8.gif	" height=25px>&nbsp;<img src="img/emoticons/9.gif	" height=25px>&nbsp;<img src="img/emoticons/10.gif	" height=25px>&nbsp;<img src="img/emoticons/11.gif	" height=25px>&nbsp;<img src="img/emoticons/12.gif	" height=25px>&nbsp;<img src="img/emoticons/13.gif	" height=25px>&nbsp;<img src="img/emoticons/14.gif	" height=25px>&nbsp;<img src="img/emoticons/15.gif	" height=25px>&nbsp;<img src="img/emoticons/16.gif	" height=25px>&nbsp;<img src="img/emoticons/17.gif	" height=25px>&nbsp;<img src="img/emoticons/18.gif	" height=25px>&nbsp;<img src="img/emoticons/19.gif	" height=25px>&nbsp;<img src="img/emoticons/20.gif	" height=25px>&nbsp;<img src="img/emoticons/21.gif	" height=25px>&nbsp;<img src="img/emoticons/22.gif	" height=25px>&nbsp;<img src="img/emoticons/23.gif	" height=25px>&nbsp;<img src="img/emoticons/24.gif	" height=25px>&nbsp;'
     }
 			);
 	});
