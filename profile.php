@@ -4,6 +4,14 @@
 <html>
 <script type="text/javascript">
 <!--
+var post_id;
+var post_like_type;
+var post_id_privacy;
+var member_id;
+<?php
+	echo "member_id=".$_SESSION['SESS_MEMBER_ID'].";";
+?>
+
 var timeout         = 500;
 var closetimer		= 0;
 var ddmenuitem      = 0;
@@ -63,7 +71,15 @@ document.onclick = mclose;
 	<title>Profile</title>
 
 	<script>
-	function like(likeType,comment_id,member_id) {
+	function like(num){
+		post_like_type = num;
+		console.log("set the post like type to "+post_like_type);
+	}
+	function set_post_id(num){
+		post_id = num;
+		console.log("set the post id to "+post_id);
+	}
+	function submit_like() {
 			console.log("working");
 	        if (window.XMLHttpRequest) {
 	            // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -78,7 +94,7 @@ document.onclick = mclose;
 	                //document.getElementById("commentlike-"+comment_id).innerHTML = this.responseText;
 	            }
 	        };
-	        xmlhttp.open("GET","likes.php?likeType="+likeType+"&comment_id="+comment_id+"&member_id="+member_id,true);
+	        xmlhttp.open("GET","likes.php?likeType="+post_like_type+"&comment_id="+post_id+"&member_id="+member_id,true);
 	        xmlhttp.send();
 
 	}
@@ -434,7 +450,7 @@ while($row1 = mysql_fetch_array($result1))
 	echo'<hr width="390">';
 	echo '<div class="kkk">';
 
-	echo'<a class="style" href="deletepost1.php?id=' . $row["comment_id"] . '">delete</a>&nbsp;&nbsp;<a style="outline:none" class="style" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="modal" data-target="#myModal"><img width=20 height=20  src=img/like.png >Like</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+	echo'<a class="style" href="deletepost1.php?id=' . $row["comment_id"] . '">delete</a>&nbsp;&nbsp;<a onclick="set_post_id('.$row["comment_id"].')" style="outline:none" class="style" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="modal" data-target="#myModal"><img width=20 height=20  src=img/like.png >Like</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
 
 	$days = floor($row['TimeSpent'] / (60 * 60 * 24));
 			$remainder = $row['TimeSpent'] % (60 * 60 * 24);
@@ -468,43 +484,49 @@ while($row1 = mysql_fetch_array($result1))
         <h4 class="modal-title" id="myModalLabel">Like a post</h4>
       </div>
       <div class="modal-body">
-		  <center>
-        <img onclick="like(1)" src="img/emoticons/1.gif	" height=30px>&nbsp;
-		<img src="img/emoticons/2.gif" height=30px>&nbsp;
-		<img src="img/emoticons/3.gif" height=30px>&nbsp;
-		<img src="img/emoticons/4.gif" height=30px>&nbsp;
-		<img src="img/emoticons/5.gif" height=30px>&nbsp;
-		<img src="img/emoticons/6.gif" height=30px>&nbsp;<br>
-		<img src="img/emoticons/7.gif" height=30px>&nbsp;
-		<img src="img/emoticons/8.gif" height=30px>&nbsp;
-		<img src="img/emoticons/9.gif" height=30px>&nbsp;
-		<img src="img/emoticons/10.gif" height=30px>&nbsp;
-		<img src="img/emoticons/11.gif" height=30px>&nbsp;
-		<img src="img/emoticons/12.gif" height=30px>&nbsp;<br>
-		<img src="img/emoticons/13.gif" height=30px>&nbsp;
-		<img src="img/emoticons/14.gif" height=30px>&nbsp;
-		<img src="img/emoticons/15.gif" height=30px>&nbsp;
-		<img src="img/emoticons/16.gif" height=30px>&nbsp;
-		<img src="img/emoticons/17.gif" height=30px>&nbsp;
-		<img src="img/emoticons/18.gif" height=30px>&nbsp;<br>
-		<img src="img/emoticons/19.gif" height=30px>&nbsp;
-		<img src="img/emoticons/20.gif" height=30px>&nbsp;
-		<img src="img/emoticons/21.gif" height=30px>&nbsp;
-		<img src="img/emoticons/22.gif" height=30px>&nbsp;
-		<img src="img/emoticons/23.gif" height=30px>&nbsp;
-		<img src="img/emoticons/24.gif" height=30px>&nbsp;
-	</center>
+		  <div class="row">
+			  <div class="col-xs-6">
+            <img onclick="like(1)" src="img/emoticons/1.gif	" height=30px>&nbsp;
+    		<img onclick="like(2)" src="img/emoticons/2.gif" height=30px>&nbsp;
+    		<img onclick="like(3)" src="img/emoticons/3.gif" height=30px>&nbsp;
+    		<img onclick="like(4)" src="img/emoticons/4.gif" height=30px>&nbsp;
+    		<img onclick="like(5)" src="img/emoticons/5.gif" height=30px>&nbsp;
+    		<img onclick="like(6)" src="img/emoticons/6.gif" height=30px>&nbsp;<br>
+    		<img onclick="like(7)" src="img/emoticons/7.gif" height=30px>&nbsp;
+    		<img onclick="like(8)" src="img/emoticons/8.gif" height=30px>&nbsp;
+    		<img onclick="like(9)" src="img/emoticons/9.gif" height=30px>&nbsp;
+    		<img onclick="like(10)" src="img/emoticons/10.gif" height=30px>&nbsp;
+    		<img onclick="like(11)" src="img/emoticons/11.gif" height=30px>&nbsp;
+    		<img onclick="like(12)" src="img/emoticons/12.gif" height=30px>&nbsp;<br>
+    		<img onclick="like(13)" src="img/emoticons/13.gif" height=30px>&nbsp;
+    		<img onclick="like(14)" src="img/emoticons/14.gif" height=30px>&nbsp;
+    		<img onclick="like(15)" src="img/emoticons/15.gif" height=30px>&nbsp;
+    		<img onclick="like(16)" src="img/emoticons/16.gif" height=30px>&nbsp;
+    		<img onclick="like(17)" src="img/emoticons/17.gif" height=30px>&nbsp;
+    		<img onclick="like(18)" src="img/emoticons/18.gif" height=30px>&nbsp;<br>
+    		<img onclick="like(19)" src="img/emoticons/19.gif" height=30px>&nbsp;
+    		<img onclick="like(20)" src="img/emoticons/20.gif" height=30px>&nbsp;
+    		<img onclick="like(21)" src="img/emoticons/21.gif" height=30px>&nbsp;
+    		<img onclick="like(22)" src="img/emoticons/22.gif" height=30px>&nbsp;
+    		<img onclick="like(23)" src="img/emoticons/23.gif" height=30px>&nbsp;
+    		<img onclick="like(24)" src="img/emoticons/24.gif" height=30px>&nbsp;
+    	</div>
+    	<div class="col-xs-6">
+    		<div class="list-group">
+    			<a href="#" class="list-group-item active">
+    			  Privacy settings.
+    			</a>
+    			<a class="list-group-item"><input type="checkbox" id="privacy1"> Family</a>
+    			<a class="list-group-item"><input type="checkbox" id="privacy2"> Close Friends</a>
+    			<a class="list-group-item"><input type="checkbox" id="privacy3"> Normal Friends</a>
+    		  </div>
+    	</div>
+		  </div>
+
       </div>
       <div class="modal-footer">
-		  <div class="list-group">
-			  <a href="#" class="list-group-item active">
-			    Privacy settings<small>Specify who must see this...</small>
-			  </a>
-			  <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-			  <a href="#" class="list-group-item">Morbi leo risus</a>
-			  <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-			  <a href="#" class="list-group-item">Vestibulum at eros</a>
-			</div>
+		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button onclick="submit_like();" type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

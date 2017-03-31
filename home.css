@@ -42,10 +42,10 @@ width:750px;
 height:30px;
 border-style:solid;
 background-color:#373737;
-border-width:thin;       
-border-top-color:white; 
-border-left-color:white;  
-border-right-color:white;                                                         
+border-width:thin;
+border-top-color:white;
+border-left-color:white;
+border-right-color:white;
 margin-top: 7px;
 border-left-width: 1px; width: 707px;
 float:left;
@@ -79,7 +79,7 @@ margin-left: 323px; width: 59px;
 	border:1px solid #006600;
 	outline:none;
 	font-family:Palatino Linotype;
-	
+
 }
 
 
@@ -90,17 +90,17 @@ float:right;
 }
 #h2{
 color:gray;
-font-family:Calibri;
+
 padding:6px 6px 6px 6px;
 }
 #sddm
 {	margin: 0;
-   
+
 	padding: 0;
 	z-index: 30}
 
 #sddm li
-{	
+{
 margin: -1;
 	padding: 0;
 	list-style: none;
@@ -116,8 +116,8 @@ margin: -1;
 	color: #FFF;
 	text-align: center;
 	text-decoration: none}
-	
-	
+
+
 
 #sddm li a:hover
 {	background: gray}
@@ -146,8 +146,8 @@ margin: -1;
 	#sddm div a:hover
 	{	background: gray;
 		color: #FFF}
-		
-		
+
+
 #sddm1
 {
 margin-left: 0px;
@@ -156,7 +156,7 @@ margin-left: 0px;
 	list-style:none;}
 
 #sddm1 li
-{		
+{
 
 	float: left;
 	font: Palatino Linotype}
@@ -197,7 +197,7 @@ margin-left: 0px;
 	#sddm1 div a:hover
 	{	background: #49A3FF;
 		color: #FFF}
-				
+
 #sddm11
 {
 margin-left: 0px;
@@ -206,7 +206,7 @@ margin-left: 0px;
 	list-style:none;}
 
 #sddm11 li
-{		
+{
 
 	float: left;
 	font: Palatino Linotype}
@@ -247,7 +247,7 @@ margin-left: 0px;
 	#sddm11 div a:hover
 	{	background: #49A3FF;
 		color: #FFF}
-		
+
 .search{
 width: 100px; margin-top: 8px; margin-left: 5px;
 float:left;
@@ -324,23 +324,23 @@ font: Palatino Linotype}
 
 .p{
 margin-top:5px;
-  font-family:Calibri;
+
 }
 .color123
 {
-font-family:Calibri;
+
 font-size:27px;
 color:Gray;
 }
 .color
 {
-font-family:Calibri;
+
 font-size:27px;
 color:Gray;
 }
 .colorless
 {
-font-family:Calibri;
+
 font-size:20px;
 color:Gray;
 }
@@ -351,12 +351,12 @@ font: Palatino Linotype
 }
 .information{
 
-font-family:Calibri;
+
 font-size:13px;
 }
 .information2{
 
-font-family:Calibri;
+
 font-size:20px;
 }
 .rightrigh{
@@ -378,7 +378,7 @@ float:right;
 width: 162px;
 }
 #x {
-	
+
 	height: 25px;
 	background: #666666;
 	border: 1px solid #333333;
@@ -393,26 +393,26 @@ font-weight:normal;
 color:gray;
 }
 .a
-{	
+{
 	display: block;
 	width: 90px;
 	background: #666666;
 	color: white;
 	text-align: center;
 	text-decoration: none;
-	
+
 	}
 	.acd
-{	
+{
 	display: block;
 	width: 130px;
 	background: #666666;
 	color: white;
 	text-align: center;
 	text-decoration: none;
-	
+
 	}
-	
+
 	.t {
 	color: #333333;
 	background: #F7F7F7;
@@ -443,7 +443,7 @@ float:left;
 	padding:5px 3px 5px 0px;
 	margin:0px 0px 4px 0px;
 	font-family:Palatino Linotype;
-	
+
 }
 .popup
 {
@@ -458,7 +458,7 @@ float:left;
    font-size: 20px;
    text-align: center;
 /*    display:none; */
-   
+
 }
 .date{
 color: #333333;
@@ -554,17 +554,17 @@ width:750px;
 height:170px;
 }
 .abc
-{	
+{
 	display: block;
 	width: 200px;
 	background: #666666;
 	color: white;
 	text-align: center;
 	text-decoration: none;
-	
+
 	}
-	
-	
+
+
 .img {
 	border: 1px solid #BBB;
 	padding: 2px;
@@ -572,28 +572,28 @@ height:170px;
 	vertical-align: top;
 }
 	#create{
-	
+
 	text-decoration:none;
 	float:left;
 	margin-left:50px;
 		text-align: center;
 	padding:0px, 5px, 5px, 5px;
-			
-	
+
+
 	}
-	
-	
+
+
 	#re{
-	
+
 	text-decoration:none;
 	float:right;
 	margin-right:10px;
-		
+
 	text-align: center;
 	padding:0px, 5px, 5px, 5px;
-	
+
 	}
-	
+
 	.valentines{
 	font-size:30px;
 	float:left;
