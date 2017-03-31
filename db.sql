@@ -1,13 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 3.4.5
+-- version 4.1.12
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2012 at 01:22 AM
--- Server version: 5.1.36
--- PHP Version: 5.3.0
+-- Generation Time: Mar 31, 2017 at 12:20 PM
+-- Server version: 5.6.16
+-- PHP Version: 5.5.11
 
-SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
 
 
@@ -30,27 +30,21 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `comment_id` int(11) NOT NULL AUTO_INCREMENT,
   `comment` text NOT NULL,
   `date_created` varchar(50) NOT NULL,
+  `member_id_sender` varchar(30) NOT NULL,
   `member_id` varchar(30) NOT NULL,
+  `likes` varchar(200) NOT NULL,
   PRIMARY KEY (`comment_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=174 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=195 ;
 
 --
 -- Dumping data for table `comment`
 --
 
-INSERT INTO `comment` (`comment_id`, `comment`, `date_created`, `member_id`) VALUES
-(132, 'sdsdssf', '1328613060', '43'),
-(133, 'dsdsdsdds', '1328613067', '43'),
-(135, 'sds', '1328617260', '50'),
-(171, 'awy', '1329664979', '46'),
-(103, 'john', '1328370831', '50'),
-(155, 'sdsdsd', '1329278523', '43'),
-(160, 'sds', '1329283209', '43'),
-(161, 'jlsfjjfjjjk', '1329458863', '43'),
-(162, 'sdsd', '1329664332', '45'),
-(163, 'aaa', '1329664356', '45'),
-(172, 'sddd', '1329664988', '46'),
-(173, 'dsdsd', '1329665017', '46');
+INSERT INTO `comment` (`comment_id`, `comment`, `date_created`, `member_id_sender`, `member_id`, `likes`) VALUES
+(191, 'Pune', '1490764939', '57', '57', '57-5,57-5,57-5,57-5,57-5,57-5,57-5,57-5,57-5,57-5,57-5,'),
+(192, 'Tumi dikshashree', '1490764960', '57', '58', ''),
+(193, 'heloo mee', '1490786558', '58', '58', ''),
+(194, 'hii', '1490857585', '58', '57', '');
 
 -- --------------------------------------------------------
 
@@ -119,7 +113,8 @@ CREATE TABLE IF NOT EXISTS `friends` (
 --
 
 INSERT INTO `friends` (`member_id`, `datetime`, `status`, `friends_with`) VALUES
-(43, '2012-02-19 18:53:14', 'conf', 46);
+(43, '2012-02-19 18:53:14', 'conf', 46),
+(58, '2017-03-29 10:47:45', 'conf', 57);
 
 -- --------------------------------------------------------
 
@@ -132,7 +127,14 @@ CREATE TABLE IF NOT EXISTS `likes` (
   `remarks` text NOT NULL,
   `remarksby` varchar(30) NOT NULL,
   PRIMARY KEY (`like_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+
+--
+-- Dumping data for table `likes`
+--
+
+INSERT INTO `likes` (`like_id`, `remarks`, `remarksby`) VALUES
+(1, '', '');
 
 -- --------------------------------------------------------
 
@@ -167,7 +169,7 @@ CREATE TABLE IF NOT EXISTS `members` (
   `year` varchar(4) NOT NULL,
   `Stats` varchar(30) NOT NULL,
   PRIMARY KEY (`member_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=54 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=62 ;
 
 --
 -- Dumping data for table `members`
@@ -183,7 +185,15 @@ INSERT INTO `members` (`member_id`, `UserName`, `Password`, `FirstName`, `LastNa
 (50, 'jk', '051a9911de7b5bbc610b76f4eda834a0', 'john kevin amos', 'lorayna', 'Bago City', '09127730611', 'kevin_lorayna@yahoo.com', 'January/1/2012', 'Female', '0000-00-00 00:00:00', 'upload/a.jpg', 'Bago City', '', '', '', '', '', '', '', '', '', '', '', ''),
 (48, 'kj', '771f01104d905386a134a676167edccc', 'kent john', 'lorayna', 'Bago City', '90908989', 'kevin_lorayna@yahoo.com', 'January/1/2012', 'Female', '0000-00-00 00:00:00', 'upload/p.jpg', 'Bago City', '', '', '', '', '', '', '', '', 'January', '1', '2012', ''),
 (49, 'jk', '051a9911de7b5bbc610b76f4eda834a0', 'jk', 'jk', 'jk', 'jk', 'js@yahoo.com', 'January/1/2012', 'Female', '0000-00-00 00:00:00', 'upload/p.jpg', 'jk', '', '', '', '', '', '', '', '', 'January', '1', '2012', ''),
-(51, 'jam', '5275cb415e5bc3948e8f2cd492859f26', 'maricon', 'itona', 'victorias city', '09468282747', 'mariconitona@gmail.com', 'July/11/1992', 'Female', '0000-00-00 00:00:00', 'upload/p.jpg', 'victorias city', '', '', '', '', '', '', '', '', 'July', '11', '1992', '');
+(51, 'jam', '5275cb415e5bc3948e8f2cd492859f26', 'maricon', 'itona', 'victorias city', '09468282747', 'mariconitona@gmail.com', 'July/11/1992', 'Female', '0000-00-00 00:00:00', 'upload/p.jpg', 'victorias city', '', '', '', '', '', '', '', '', 'July', '11', '1992', ''),
+(54, 'BhawanaAnu', 'a1a92a839e70ecff5ba4c46cce89631b', 'Bhawana', 'Mishra', 'Nit', '1231231231', 'bhawana20130790@gmail.com', '08/15/1994', '0', '0000-00-00 00:00:00', 'upload/default_avatar_female.jpg', 'Nit', '', '', '', '', '', '', '', '', '', '', '', ''),
+(55, 'harprit', 'd9b1d7db4cd6e70935368a1efb10e377', 'harprit', 'mukar', 'fdddd', '123432123', 'dfg@fg.com', '', '0', '0000-00-00 00:00:00', 'upload/default_avatar_female.jpg', 'fdddd', '', '', '', '', '', '', '', '', '', '', '', ''),
+(56, 'priyal', '202cb962ac59075b964b07152d234b70', 'priyal', 'pangoria', 'dfg', '1234123412', 'priyal@gmail.com', '', '0', '0000-00-00 00:00:00', 'upload/default_avatar_female.jpg', 'dfg', '', '', '', '', '', '', '', '', '', '', '', ''),
+(57, 'Prakash', '81dc9bdb52d04dc20036dbd8313ed055', 'Chandra', 'Prakash', 'Aurangabad', '888419765', 'chandra@gmail.com', '', 'Male', '0000-00-00 00:00:00', 'upload/default_avatar_male.jpg', 'Aurangabad', '', '', '', '', '', '', '', '', '', '', '', ''),
+(58, 'diksha', '202cb962ac59075b964b07152d234b70', 'Diksha', 'Dubey', 'Gorakhpur', '8978675645', 'diksha@gmail.com', '', '0', '0000-00-00 00:00:00', 'upload/default_avatar_female.jpg', 'Gorakhpur', '', '', '', '', '', '', '', '', '', '', '', ''),
+(59, 'Pallo', '202cb962ac59075b964b07152d234b70', 'Pallavi', 'Jha', 'Madhubani', '1234562345', 'pallo@gmail.com', '', '0', '0000-00-00 00:00:00', 'upload/default_avatar_female.jpg', 'Madhubani', '', '', '', '', '', '', '', '', '', '', '', ''),
+(60, 'AP', '1c4372e3e2cf3401fc69b621598c6290', 'A', 'P', 'sdfsf', '321', 'abhijeet.junk@gmail.com', '03/15/2017', '0', '0000-00-00 00:00:00', 'upload/default_avatar_female.jpg', 'sdfsf', '', '', '', '', '', '', '', '', '', '', '', ''),
+(61, 'BMCP', '558401680eab56c865ee27c9357aef98', 'B', 'M', 'sdfsf', '321', 'aditi.dec.28@gmail.com', '03/13/2017', '0', '0000-00-00 00:00:00', 'upload/default_avatar_female.jpg', 'sdfsf', '', '', '', '', '', '', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
