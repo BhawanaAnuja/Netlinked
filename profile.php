@@ -1,5 +1,13 @@
 <?php
 	require('session.php');
+	//Function to sanitize values received from the form. Prevents SQL injection
+	function clean($str) {
+		$str = @trim($str);
+		if(get_magic_quotes_gpc()) {
+			$str = stripslashes($str);
+		}
+		return mysql_real_escape_string($str);
+	}
 ?>
 <html>
 <script type="text/javascript">
@@ -10,6 +18,7 @@ var post_id_privacy;
 var member_id;
 <?php
 	echo "member_id=".$_SESSION['SESS_MEMBER_ID'].";";
+	$member_id = $_SESSION['SESS_MEMBER_ID'];
 ?>
 
 var timeout         = 500;
@@ -77,6 +86,7 @@ document.onclick = mclose;
 	}
 	function set_post_id(num){
 		post_id = num;
+		post_like_type = 17;
 		console.log("set the post id to "+post_id);
 	}
 	function submit_like() {
@@ -95,6 +105,34 @@ document.onclick = mclose;
 	            }
 	        };
 	        xmlhttp.open("GET","likes.php?likeType="+post_like_type+"&comment_id="+post_id+"&member_id="+member_id,true);
+	        xmlhttp.send();
+			var cid = "lb"+post_id;
+			document.getElementById(cid).classList.remove("btn-default");
+			document.getElementById(cid).classList.add("btn-primary");
+	}
+	function showLikes(id) {
+			console.log("working");
+	        if (window.XMLHttpRequest) {
+	            // code for IE7+, Firefox, Chrome, Opera, Safari
+	            xmlhttp = new XMLHttpRequest();
+	        } else {
+	            // code for IE6, IE5
+	            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+	        }
+	        xmlhttp.onreadystatechange = function() {
+	            if (this.readyState == 4 && this.status == 200) {
+									var res = $.parseJSON(this.responseText);
+					var str = '<a class="list-group-item active">People who liked this post</a>';
+					console.log(res.length);
+
+					for(var i = 0;i<res.length;i++){
+						var imgvar = '<img src="img/emoticons/'+res[i].likeType+'.gif" height=30px>&nbsp;';
+						str+= '<a href="friendprofile.php?id='+res[i].member_id+'" class="list-group-item">'+imgvar+res[i].memberName+'</a>';
+					}
+	                document.getElementById("listLikeModel").innerHTML = str;
+	            }
+	        };
+	        xmlhttp.open("GET","returnLikes.php?comment_id="+id+"&member_id="+member_id,true);
 	        xmlhttp.send();
 
 	}
@@ -148,7 +186,6 @@ body {
 .style1 {font-weight: bold}
 -->
 </style>
-</body>
 <div class="main">
 
 
@@ -418,40 +455,39 @@ while($row = mysql_fetch_array($result))
 
   $query  = "SELECT *,UNIX_TIMESTAMP() - date_created AS TimeSpent FROM comment WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."' ORDER BY comment_id DESC";
 $result = mysql_query($query);
-
-
-
+?>
+<?php
 while($row = mysql_fetch_assoc($result))
 {
-   echo '<div class="information">';
-	echo '<div class="pic1">';
-			$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
-while($row1 = mysql_fetch_array($result1))
-  {
-	echo "<img width=40 height=40 alt='Unable to View' src='" . $row1["profImage"] . "'>";
-	}
-	echo '<div class="message">';
+	$comment_id = $row['comment_id'];
+	$comment = $row['comment'];
+	$member_id = $row['member_id'];
+	$member_id_sender = $row['member_id_sender'];
+	$likes = $row['likes'];
 
-		$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
-while($row1 = mysql_fetch_array($result1))
-  {
-
-
- echo " Posted by:<font color=#1d3162> {$row1['FirstName']}"."&nbsp;{$row1["LastName"]}</font>";
-  }
-
-
-	echo '</br>';
+	$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
+	$row1 = mysql_fetch_array($result1);
+   echo '<div class="panel panel-default" style="padding:10px">
+     <div class="panel-body">';
+	 echo '<div class="row">
+  			<div class="col-xs-6 col-md-3">
+    			<a href="#" class="thumbnail">';
+	echo "<img width=100 height=100 alt='Unable to View' src='" . $row1["profImage"] . "'>";
+	echo '</a>
+  			</div>';
+	$result1 = mysql_query("SELECT * FROM members WHERE member_id='".$_SESSION['SESS_MEMBER_ID'] ."'");
+	$row1 = mysql_fetch_array($result1);
+	$fname = $row1['FirstName'];
+	$lname = $row1['LastName'];
+	$id = $row['member_id'];
+	echo "<div class='col-xs-6 colmd-8'><br><strong><a href='friendprofile.php?action=view&id={$id}'>{$fname}"."&nbsp;{$lname}</a> posted</strong></div>";
+	echo '</div>';
+	echo '<div class="row"><p>';
 	echo "{$row['comment']}";
-
-	echo'</br>';
-	echo'</br>';
+	echo '</p>';
 	echo'</div>';
-	echo'<hr width="390">';
-	echo '<div class="kkk">';
 
-	echo'<a class="style" href="deletepost1.php?id=' . $row["comment_id"] . '">delete</a>&nbsp;&nbsp;<a onclick="set_post_id('.$row["comment_id"].')" style="outline:none" class="style" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="modal" data-target="#myModal"><img width=20 height=20  src=img/like.png >Like</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-
+	echo '<div class="row">';
 	$days = floor($row['TimeSpent'] / (60 * 60 * 24));
 			$remainder = $row['TimeSpent'] % (60 * 60 * 24);
 			$hours = floor($remainder / (60 * 60));
@@ -464,18 +500,73 @@ while($row1 = mysql_fetch_array($result1))
 			echo "few seconds ago";
 			elseif($days == 0 && $hours == 0)
 			echo $minutes.' minutes ago';
+	echo '</div>';
+	echo '<div class="row">';
+	$listOfLikes = explode(",",clean($row['likes']));
+	$num = sizeof($listOfLikes);
+	$num--;
 
-	echo'</div>';
-	echo'</br>';
-	echo'</br>';
+	$flag = 0;$i=0;
+	foreach($listOfLikes as $value){
+		//echo "+{$member_id}";
+		$l = explode("-",$value);
+		if($l[0] === $member_id){
+			$flag = 1;
+			break;
+		}
+		$i++;
+	}
+	if($num>0){
+		$num1 = $num-1;
+		//echo $i;
+		if($flag == 1){
+			if($num>1)
+				echo "<a onclick='showLikes({$comment_id});' style='cursor:pointer' data-toggle='modal' data-target='#myModal2'>You and {$num1} others</a> have liked this";
+			else
+				echo "You have liked this";
+		}
+		else{
+			$a = explode("-",$listOfLikes[0]);
+			$result1 = mysql_query("SELECT * FROM members WHERE member_id={$a[0]}");
+			$row1 = mysql_fetch_array($result1);
+			$fname = $row1['FirstName'];
+			$lname = $row1['LastName'];
+			if($num>1)
+				echo "<a onclick='showLikes({$comment_id});' style='cursor:pointer' data-toggle='modal' data-target='#myModal2'>{$fname} {$lname} and {$num1} others </a>have liked this";
+			else
+				echo "{$fname} {$lname} has liked this";
+		}
+	}
+	echo '</div>';
+	echo'<hr>';
+
+	echo '<div class="row">';
+	$classOfLike = "btn-default";
+	if($flag == 1){
+		$classOfLike = "btn-primary";
+	}
+	echo '
+	<a id="lb'.$row["comment_id"].'" class="btn '.$classOfLike.'" type="button" onclick="set_post_id('.$row["comment_id"].')" style="outline:none" class="style" tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="modal" data-target="#myModal">
+		Like
+	</a>
+	<button class="btn btn-default" type="button">
+  		Comment
+	</button>
+	<button class="btn btn-default" type="button">
+	  	Share
+	</button>
+	';
+	echo '</div>';
+
+	echo '</div></div>';
 	}
 
-  echo '</div>';
+
   echo'</br>';
 
   ?>
 
-  <!-- Modal -->
+  <!-- Modal for liking-->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -526,10 +617,42 @@ while($row1 = mysql_fetch_array($result1))
       </div>
       <div class="modal-footer">
 		  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button onclick="submit_like();" type="button" class="btn btn-primary">Save changes</button>
+        <button onclick="submit_like();" type="button" class="btn btn-primary" data-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Modal for showing likes-->
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+	<div class="modal-header">
+	  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	  <h4 class="modal-title" id="myModalLabel">Like a post</h4>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div class="col-xs-8">
+				<div class="list-group" id="listLikeModel">
+				  <a class="list-group-item active">
+				    Likes for this post
+				  </a>
+				  <a class="list-group-item">Dapibus ac facilisis in</a>
+				  <a class="list-group-item">Morbi leo risus</a>
+				  <a class="list-group-item">Porta ac consectetur ac</a>
+				  <a class="list-group-item">Vestibulum at eros</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+  </div>
+</div>
 </div>
 
 	 </div>
